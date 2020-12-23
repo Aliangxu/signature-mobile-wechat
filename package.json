@@ -1,0 +1,96 @@
+{
+  "name": "signature-mobile-wechat",
+  "description": "signatures for H5 and miniprogram.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Aliangxu/signature-mobile-wechat",
+  "author": {
+    "name": "aliang",
+    "email": "1935039407@qq.com",
+    "url": "https://github.com/Aliangxu"
+  },
+  "keywords": [
+    "signature",
+    "signature-mobile-wechat",
+    "wechat",
+    "miniprogram",
+    "小程序",
+    "白板"
+  ],
+  "license": "MIT",
+  "source": "src/signature-mobile-wechat.ts",
+  "main": "dist/signature-mobile-wechat.umd.js",
+  "module": "dist/signature-mobile-wechat.js",
+  "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js -w",
+    "clean": "yarn run del dist",
+    "format": "prettier --write '{src,tests}/**/*.{js,ts}'",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
+    "prepublishOnly": "npm run lint && npm run build",
+    "serve": "serve -l 9000 docs",
+    "start": "yarn run build && yarn run serve",
+    "test": "jest --coverage",
+    "update-docs": "cp dist/signature-mobile-wechat.umd.js docs/js/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aliangxu/signature-mobile-wechat.git"
+  },
+  "files": [
+    "src",
+    "dist",
+    "docs"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^4.0.0",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.3",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "canvas": "^2.6.1",
+    "del": "^5.1.0",
+    "del-cli": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "miniprogram-api-typings": "^2.11.0-1",
+    "prettier": "^2.0.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "serve": "^11.3.0",
+    "ts-jest": "^25.2.1",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "yarn run prettier",
+      "yarn run lint"
+    ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testEnvironmentOptions": {
+      "resources": "usable"
+    },
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.ts"
+    ],
+    "testURL": "http://localhost:3000/",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
+  }
+}
