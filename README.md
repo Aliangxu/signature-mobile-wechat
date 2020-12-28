@@ -1,6 +1,6 @@
 ## signature-mobile-wechat
 
-signature-mobile-wechat support wechat miniprogram
+signature-mobile-wechat support H5 and wechat miniprogram
 
 This is a rewrite of original signature-mobile-wechat, starting and borrowing from [this fork](https://github.com/szimek/signature_pad).
 
@@ -15,10 +15,13 @@ yarn add signature-mobile-wechat -S
 
 ## Usage
 
+### 1-导入包
 ```typescript
 import { SignatureMobile, SignatureMobileWechat } from 'signature-mobile-wechat';
-
-// 在微信小程序中使用
+```
+### 2-在微信小程序中使用
+```
+// 1-创建初始化
 wx.createSelectorQuery()
   .select(`#canvas`)
   .fields({
@@ -26,21 +29,31 @@ wx.createSelectorQuery()
     size: true,
   })
   .exec((res: any[]) => {
-    const { width, height } = res[0];
-
     const canvas: WechatMiniprogram.Canvas = res[0].node;
-
-    const signaturePad = new SignatureMobileWechat(canvas, {
+    const signatureMobileWechat = new SignatureMobileWechat(canvas, {
       minWidth: 2,
       maxWidth: 5,
       penColor: 'rgb(0, 0, 0)',
     });
   });
-
-// 正常网页使用
+// 2-手势注册注入
+handleTouchStart: function (e) {
+  // console.log(e)
+  this.data.signatureMobileWechat && this.data.signatureMobileWechat.handleTouchStart(e)
+},
+handleTouchMove: function (e) {
+  // console.log(e)
+  this.data.signatureMobileWechat && this.data.signatureMobileWechat.handleTouchMove(e)
+},
+handleTouchEnd: function (e) {
+  // console.log(e)
+  this.data.signatureMobileWechat && this.data.signatureMobileWechat.handleTouchEnd(e)
+},
+```
+### 2-正常网页使用
+```
 const canvas = document.querySelector('canvas');
-
-const signaturePad = new SignatureMobile(canvas, {
+const signatureMobile = new SignatureMobile(canvas, {
   minWidth: 2,
   maxWidth: 5,
   penColor: 'rgb(0, 0, 0)',
@@ -73,7 +86,7 @@ const signaturePad = new SignatureMobile(canvas, {
 
 You can set options during initialization:
 ```javascript
-var signaturePad = new SignatureMobile(canvas, {
+var signatureMobile = new SignatureMobile(canvas, {
     minWidth: 5,
     maxWidth: 10,
     penColor: "rgb(66, 133, 244)"
@@ -81,8 +94,8 @@ var signaturePad = new SignatureMobile(canvas, {
 ```
 or during runtime:
 ```javascript
-var signaturePad = new SignatureMobile(canvas);
-signaturePad.minWidth = 5;
-signaturePad.maxWidth = 10;
-signaturePad.penColor = "rgb(66, 133, 244)";
+var signatureMobile = new SignatureMobile(canvas);
+signatureMobile.minWidth = 5;
+signatureMobile.maxWidth = 10;
+signatureMobile.penColor = "rgb(66, 133, 244)";
 ```

@@ -194,8 +194,9 @@ export default class SignaturePadBase {
         x: point.x,
         y: point.y,
       });
+      console.log("%c >>>>>>开始回掉轨迹数据","color:blue",)
+      this.sendMsg && this.sendMsg(lastPointGroup);
     }
-    this.sendMsg && this.sendMsg(lastPointGroup);
   }
 
   public strokeEnd(event: MouseEvent | Touch | WechatMiniprogram.Touch): void {
