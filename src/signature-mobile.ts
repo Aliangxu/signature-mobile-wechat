@@ -22,7 +22,7 @@ export default class SignatureMobile extends SignaturePadBase {
   /* tslint:disable: variable-name */
   private _mouseButtonDown: boolean;
 
-  constructor(canvas: HTMLCanvasElement, options: Options = {}, sendMsg: Function) {
+  constructor(canvas: HTMLCanvasElement, options: Options = {}, sendMsg?: Function) {
     super(canvas, options, sendMsg);
     this.onBegin = options.onBegin;
     this.onEnd = options.onEnd;

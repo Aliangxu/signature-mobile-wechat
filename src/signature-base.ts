@@ -37,6 +37,7 @@ export interface Options {
 
 export interface PointGroup {
   color: string;
+  minWidth?: number;
   points: BasicPoint[];
 }
 
@@ -70,7 +71,7 @@ export default class SignaturePadBase {
   constructor(
     protected canvas: HTMLCanvasElement | WechatMiniprogram.Canvas,
     protected options: Options = {},
-    protected sendMsg: Function,
+    protected sendMsg?: Function,
   ) {
     this.velocityFilterWeight = options.velocityFilterWeight || 0.7;
     this.minWidth = options.minWidth || 0.5;
@@ -217,7 +218,7 @@ export default class SignaturePadBase {
     drawDot: SignaturePadBase['_drawDot'],
   ): void {
     for (const group of pointGroups) {
-      const { color, points } = group;
+      const { color, points, minWidth } = group;
 
       if (points.length > 1) {
         for (let j = 0; j < points.length; j += 1) {
@@ -227,6 +228,10 @@ export default class SignaturePadBase {
           // All points in the group have the same color, so it's enough to set
           // penColor just at the beginning.
           this.penColor = color;
+          if (minWidth) {
+            this.minWidth = minWidth;
+            this.maxWidth = minWidth + 2;
+          }
 
           if (j === 0) {
             this.reset();

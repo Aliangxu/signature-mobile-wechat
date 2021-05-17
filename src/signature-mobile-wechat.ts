@@ -2,7 +2,7 @@ import SignaturePadBase, { Options, PointGroup } from './signature-base';
 import { Point } from './point';
 
 export default class SignatureMobileWechat extends SignaturePadBase {
-  constructor(canvas: WechatMiniprogram.Canvas, options: Options = {}, sendMsg: Function) {
+  constructor(canvas: WechatMiniprogram.Canvas, options: Options = {}, sendMsg?: Function) {
     super(canvas, options, sendMsg);
   }
   public handleTouchStart = (event: WechatMiniprogram.Event): void => {
