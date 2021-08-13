@@ -31,8 +31,8 @@ export interface Options {
   penColor?: string;
   throttle?: number;
   velocityFilterWeight?: number;
-  onBegin?: (event: MouseEvent | Touch) => void;
-  onEnd?: (event: MouseEvent | Touch) => void;
+  onBegin?: (event: MouseEvent | Touch | WechatMiniprogram.Touch) => void;
+  onEnd?: (event: MouseEvent | Touch | WechatMiniprogram.Touch) => void;
 }
 
 export interface PointGroup {
@@ -145,8 +145,14 @@ export default class SignaturePadBase {
     const newPointGroup = {
       id: new Date().getTime(),
       color: this.penColor,
+      maxWidth: this.maxWidth,
+      minWidth: this.minWidth,
       points: [],
     };
+
+    if (typeof this.options.onBegin === 'function') {
+      this.options.onBegin(event);
+    }
 
     this.data.push(newPointGroup);
     this.reset();
@@ -202,6 +208,9 @@ export default class SignaturePadBase {
 
   public strokeEnd(event: MouseEvent | Touch | WechatMiniprogram.Touch): void {
     this._strokeUpdate(event);
+    if (typeof this.options.onEnd === 'function') {
+      this.options.onEnd(event);
+    }
   }
 
   // Called when a new line is started

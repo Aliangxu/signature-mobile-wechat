@@ -1,5 +1,12 @@
 ## Changelog
 
+### 0.0.6
+
+`2021-07-26`
+
+- Feat
+ - 添加minWidth、maxWidth
+
 ### 0.0.4 and 0.0.5
 
 `2021-05-11`
